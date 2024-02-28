@@ -15,7 +15,7 @@ namespace ASP.NET_MVC_App.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Your application Home description page.";
 
             return View();
         }
