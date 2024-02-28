@@ -1,7 +1,29 @@
-﻿
+﻿@model ASP.NET_MVC_App.Models.Employee
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
 
+    <div>
+        @using (Html.BeginForm("Index", "Employee", FormMethod.Post))
+        {
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email);
+            @Html.LabelFor(m => m.Password)
+            @Html.TextBoxFor(m => m.Password);
+            <input type="submit" name="Submit" value="submit" />
+        }
+    </div>
+
+</body>
+</html> 
