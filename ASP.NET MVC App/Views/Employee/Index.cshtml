@@ -1,7 +1,7 @@
 ﻿@model ASP.NET_MVC_App.Models.Employee
 
 @{
-    ViewBag.Title = "Index";
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -9,67 +9,66 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-        <div class="row justify-content-md-center">
-            <div class="col-md-5">
-                <div class="container">
-                    @using (Html.BeginForm("Index", "Employee", FormMethod.Post))
+    <div class="row justify-content-md-center">
+        <div class="col-md-5">
+            <div class="container">
+                @using (Html.BeginForm("Index", "Employee", FormMethod.Post))
+                {
                     {
-                        {
-                            @Html.AntiForgeryToken()
+                        @Html.AntiForgeryToken()
 
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="text-center">Registration - Form</div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="text-center">Registration - Form</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.Name, new { @style = "margin-bottom:10px;" })
+                                    @Html.TextBoxFor(x => x.Name, "", new { @class = "form-control", @placeholder = "Name" })<br />
                                 </div>
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        @Html.LabelFor(x => x.Name, new { @style = "margin-bottom:10px;" })
-                                        @Html.TextBoxFor(x => x.Name, "", new { @class = "form-control", @placeholder = "Name" })<br />
-                                    </div>
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(x => x.Email, new { @style = "margin-bottom:10px;" })
-                                        @Html.TextBoxFor(x => x.Email, "", new { @class = "form-control", @placeholder = "Email" })<br />
-                                    </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.Email, new { @style = "margin-bottom:10px;" })
+                                    @Html.TextBoxFor(x => x.Email, "", new { @class = "form-control", @placeholder = "Email" })<br />
+                                </div>
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(x => x.Address, new { @style = "margin-bottom:10px;" })
-                                        @Html.TextAreaFor(x => x.Address, 5, 10, new { @class = "form-control", @placeholder = "Address" })<br />
-                                    </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.Address, new { @style = "margin-bottom:10px;" })
+                                    @Html.TextAreaFor(x => x.Address, 5, 10, new { @class = "form-control", @placeholder = "Address" })<br />
+                                </div>
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(x => x.Gender, new { @style = "margin-right:10px;" })
-                                        @Html.RadioButtonFor(x => x.Gender, "Male", true)@Html.Label("Male", new { @style = "margin-right:10px;" })
-                                        @Html.RadioButtonFor(x => x.Gender, "Female", false)@Html.Label("Female") <br /> <br />
-                                    </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.Gender, new { @style = "margin-right:10px;" })
+                                    @Html.RadioButtonFor(x => x.Gender, "Male", true)@Html.Label("Male", new { @style = "margin-right:10px;" })
+                                    @Html.RadioButtonFor(x => x.Gender, "Female", false)@Html.Label("Female") <br /> <br />
+                                </div>
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(x => x.Contact, new { @style = "margin-bottom:10px;" })
-                                        @Html.TextBoxFor(x => x.Contact, "", new { @type = "number", @class = "form-control", @placeholder = "Contact" })<br />
-                                    </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.Contact, new { @style = "margin-bottom:10px;" })
+                                    @Html.TextBoxFor(x => x.Contact, "", new { @type = "number", @class = "form-control", @placeholder = "Contact" })<br />
+                                </div>
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(x => x.Password, new { @style = "margin-bottom:10px;" })
-                                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })<br />
-                                    </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.Password, new { @style = "margin-bottom:10px;" })
+                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })<br />
+                                </div>
 
-                                    <div>
-                                        @Html.CheckBoxFor(x => x.tc, new { @style = "margin-right:10px;" })<label>I agree to terms and condition</label> <br /><br />
-                                    </div>
+                                <div>
+                                    @Html.CheckBoxFor(x => x.tc, new { @style = "margin-right:10px;" })<label>I agree to terms and condition</label> <br /><br />
+                                </div>
 
-                                    <div class="form-group">
-                                        <input type="submit" name="submit" class="btn btn-success" value="Register" />
-                                    </div>
+                                <div class="form-group">
+                                    <input type="submit" name="submit" class="btn btn-success" value="Register" />
                                 </div>
                             </div>
-                        }
+                        </div>
                     }
-                </div>
-           </div>
-       </div>
+                }
+            </div>
+        </div>
+    </div>
 </body>
 </html> 
