@@ -124,9 +124,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\City.cs" />
+    </Compile>    
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\City.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
