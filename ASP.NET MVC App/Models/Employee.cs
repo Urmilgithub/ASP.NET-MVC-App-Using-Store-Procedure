@@ -16,5 +16,8 @@ namespace ASP.NET_MVC_App.Models
         public string Password { get; set; }
         public bool tc { get; set; }
 
+        public int countryid { get; set; }
+        public Country countryobj { get; set; }
+
     }
 }
