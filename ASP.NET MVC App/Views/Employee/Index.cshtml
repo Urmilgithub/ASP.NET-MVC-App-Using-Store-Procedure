@@ -1,4 +1,5 @@
 ﻿@model ASP.NET_MVC_App.Models.Employee
+@using ASP.NET_MVC_App.Models
 
 @{
     Layout = null;
@@ -99,5 +100,45 @@
             </div>
         </div>
     </div>
+
+    <div>
+        @if (ViewData["EmployeeList"] != null)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Contact</th>
+                        <th>Password</th>
+                        <th>Address</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (List<Employee>)ViewData["EmployeeList"])
+                    {
+                    <tr>
+                        <td>@item.EmployeeId</td>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td>@item.Gender</td>
+                        <td>@item.Contact</td>
+                        <td>@item.Password</td>
+                        <td>@item.Address</td>
+                        <td>@item.countryobj.countryname</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+           <h1> No Records Found!</h1>
+        }
+    </div>
+
 </body>
 </html> 
