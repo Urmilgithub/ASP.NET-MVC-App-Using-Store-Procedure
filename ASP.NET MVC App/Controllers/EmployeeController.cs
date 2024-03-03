@@ -18,21 +18,43 @@ namespace ASP.NET_MVC_App.Controllers
         // GET: Employee
         public ActionResult Index()
         {
+            BindCountry();
             return View();
+        }
+
+        public void BindCountry()
+        {
+            SqlConnection connection = new SqlConnection(stringconnection);
+            if(connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            string str = "select * from Country_tbl";
+            SqlCommand cmd = new SqlCommand(str, connection);
+            SqlDataReader dr = cmd.ExecuteReader();
+            List<SelectListItem> Countrylist = new List<SelectListItem>();
+            while (dr.Read())
+            {
+                Countrylist.Add(new SelectListItem { Text = dr["countryname"].ToString(), Value = dr["countryid"].ToString() });
+            }
+            ViewBag.CountryList = Countrylist;
+
+            connection.Close();
         }
 
         [HttpPost]
         public ActionResult Index(Employee employee)
         {
-            SqlConnection connect = new SqlConnection(stringconnection);
-            if(connect.State == ConnectionState.Closed)
+            SqlConnection connection = new SqlConnection(stringconnection);
+            if(connection.State == ConnectionState.Closed)
             {
-                connect.Open();
+                connection.Open();
             }
-            string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,TC) values ('" + employee.Name +"', '" + employee.Email +"','" + employee.Gender +"','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password +"', '" + employee.Address +"', '" + employee.tc +"')";
-            SqlCommand cmd = new SqlCommand(str, connect);
+            string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,TC,countryid) values ('" + employee.Name +"', '" + employee.Email +"','" + employee.Gender +"','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password +"', '" + employee.Address +"', '" + employee.tc +"', '" + Convert.ToInt32(employee.countryid) +"')";
+            SqlCommand cmd = new SqlCommand(str, connection);
             cmd.ExecuteNonQuery();
-            connect.Close();
+            connection.Close();
             ModelState.Clear();
             TempData["msg"] = "Successfully Added Data";
             TempData.Keep();
