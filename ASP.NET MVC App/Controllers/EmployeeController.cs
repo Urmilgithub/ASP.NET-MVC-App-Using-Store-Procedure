@@ -46,15 +46,15 @@ namespace ASP.NET_MVC_App.Controllers
         [HttpPost]
         public ActionResult Index(Employee employee)
         {
-            SqlConnection connect = new SqlConnection(stringconnection);
-            if(connect.State == ConnectionState.Closed)
+            SqlConnection connection = new SqlConnection(stringconnection);
+            if(connection.State == ConnectionState.Closed)
             {
-                connect.Open();
+                connection.Open();
             }
             string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,TC,countryid) values ('" + employee.Name +"', '" + employee.Email +"','" + employee.Gender +"','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password +"', '" + employee.Address +"', '" + employee.tc +"', '" + Convert.ToInt32(employee.countryid) +"')";
-            SqlCommand cmd = new SqlCommand(str, connect);
+            SqlCommand cmd = new SqlCommand(str, connection);
             cmd.ExecuteNonQuery();
-            connect.Close();
+            connection.Close();
             ModelState.Clear();
             TempData["msg"] = "Successfully Added Data";
             TempData.Keep();
