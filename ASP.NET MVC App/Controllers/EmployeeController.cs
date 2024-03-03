@@ -51,7 +51,7 @@ namespace ASP.NET_MVC_App.Controllers
             {
                 connect.Open();
             }
-            string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,TC) values ('" + employee.Name +"', '" + employee.Email +"','" + employee.Gender +"','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password +"', '" + employee.Address +"', '" + employee.tc +"')";
+            string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,TC,countryid) values ('" + employee.Name +"', '" + employee.Email +"','" + employee.Gender +"','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password +"', '" + employee.Address +"', '" + employee.tc +"', '" + Convert.ToInt32(employee.countryid) +"')";
             SqlCommand cmd = new SqlCommand(str, connect);
             cmd.ExecuteNonQuery();
             connect.Close();
