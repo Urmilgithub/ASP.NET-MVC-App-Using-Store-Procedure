@@ -30,13 +30,13 @@ namespace ASP.NET_MVC_App.Controllers
                 connection.Open();
             }
 
-            string str = "select * from Employee_tbl";
+            string str = "select * from Country_tbl";
             SqlCommand cmd = new SqlCommand(str, connection);
             SqlDataReader dr = cmd.ExecuteReader();
             List<SelectListItem> Countrylist = new List<SelectListItem>();
             while (dr.Read())
             {
-                Countrylist.Add(new SelectListItem { Text = dr["countryid"].ToString(), Value = dr["countryname"].ToString() });
+                Countrylist.Add(new SelectListItem { Text = dr["countryname"].ToString(), Value = dr["countryid"].ToString() });
             }
             ViewBag.CountryList = Countrylist;
 
