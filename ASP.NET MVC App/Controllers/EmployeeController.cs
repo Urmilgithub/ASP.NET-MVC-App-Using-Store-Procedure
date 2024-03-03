@@ -18,7 +18,29 @@ namespace ASP.NET_MVC_App.Controllers
         // GET: Employee
         public ActionResult Index()
         {
+            BindCountry();
             return View();
+        }
+
+        public void BindCountry()
+        {
+            SqlConnection connection = new SqlConnection(stringconnection);
+            if(connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            string str = "select * from Employee_tbl";
+            SqlCommand cmd = new SqlCommand(str, connection);
+            SqlDataReader dr = cmd.ExecuteReader();
+            List<SelectListItem> Countrylist = new List<SelectListItem>();
+            while (dr.Read())
+            {
+                Countrylist.Add(new SelectListItem { Text = dr["countryid"].ToString(), Value = dr["countryname"].ToString() });
+            }
+            ViewBag.CountryList = Countrylist;
+
+            connection.Close();
         }
 
         [HttpPost]
