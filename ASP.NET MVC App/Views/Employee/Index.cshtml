@@ -61,8 +61,7 @@
                                     @Html.TextBoxFor(x => x.Contact, "", new { @type = "number", @class = "form-control", @placeholder = "Contact" })<br />
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="form-control">State</label>
+                                <div class="form-group">         
                                     @if(ViewBag.CountryList != null)
                                      {
                                         @Html.DropDownListFor(x=>x.countryid, (List<SelectListItem>)ViewBag.CountryList, "-- Select Country--", new {@class="form-control"})
