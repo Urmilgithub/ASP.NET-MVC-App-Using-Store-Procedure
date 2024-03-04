@@ -15,11 +15,53 @@ namespace ASP.NET_MVC_App.Controllers
 
         string stringconnection = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
+        Employee employeeModel = null;
+        Country countryModel = null;
+
         // GET: Employee
         public ActionResult Index()
         {
             BindCountry();
+            BindData();
             return View();
+        }
+
+        public void BindData()
+        {
+            SqlConnection connection = new SqlConnection(stringconnection);
+            if(connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+
+            string str = "SELECT Employee_tbl.Id, Employee_tbl.Name, Employee_tbl.Email, Employee_tbl.Gender, Employee_tbl.Contact, Employee_tbl.Password, Employee_tbl.Address, Country_tbl.countryname " +
+                         "FROM Employee_tbl INNER JOIN Country_tbl " +
+                         "ON Employee_tbl.countryid = Country_tbl.countryid";
+
+            SqlCommand cmd =new SqlCommand(str, connection);
+            SqlDataReader dr = cmd.ExecuteReader();
+            List<Employee> employeelist = new List<Employee>();
+            while (dr.Read())
+
+            {
+                employeeModel = new Employee();
+                employeeModel.EmployeeId = Convert.ToInt32(dr["Id"]);
+                employeeModel.Name = dr["Name"].ToString();
+                employeeModel.Email = dr["Email"].ToString();
+                employeeModel.Gender = dr["Gender"].ToString();
+                employeeModel.Contact = Convert.ToInt32(dr["Contact"]);
+                employeeModel.Password = dr["Password"].ToString();
+                employeeModel.Address = dr["Address"].ToString();
+                
+                countryModel = new Country();
+                countryModel.countryname = dr["countryname"].ToString();
+
+                employeeModel.countryobj = countryModel;
+
+                employeelist.Add(employeeModel);
+            }
+
+            ViewData["EmployeeList"] = employeelist;
         }
 
         public void BindCountry()
@@ -58,6 +100,7 @@ namespace ASP.NET_MVC_App.Controllers
             ModelState.Clear();
             TempData["msg"] = "Successfully Added Data";
             TempData.Keep();
+            BindData();
             return View();
         }
     }
