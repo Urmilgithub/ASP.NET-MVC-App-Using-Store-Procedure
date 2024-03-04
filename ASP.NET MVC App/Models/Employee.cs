@@ -14,6 +14,7 @@ namespace ASP.NET_MVC_App.Models
         public string Gender { get; set; }
         public string Address { get; set; }
         public string Password { get; set; }
+        public string Image { get; set; }
         public bool tc { get; set; }
 
         public int countryid { get; set; }
