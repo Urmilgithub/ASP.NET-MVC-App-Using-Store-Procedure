@@ -86,22 +86,33 @@ namespace ASP.NET_MVC_App.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(Employee employee)
+        public ActionResult Index(Employee employee, HttpPostedFileBase Image)
         {
-            SqlConnection connection = new SqlConnection(stringconnection);
-            if(connection.State == ConnectionState.Closed)
+            if (Image != null)
             {
-                connection.Open();
+                Image.SaveAs(Server.MapPath("~/Images/") + Image.FileName);
+                SqlConnection connection = new SqlConnection(stringconnection);
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+                string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password + "', '" + employee.Address + "', '" + employee.Image + "' , '" + employee.tc + "', '" + Convert.ToInt32(employee.countryid) + "')";
+                SqlCommand cmd = new SqlCommand(str, connection);
+                cmd.ExecuteNonQuery();
+                connection.Close();
+                ModelState.Clear();
+                TempData["msg"] = "Successfully Added Data";
+                TempData.Keep();
+                BindData();
+                return View();
             }
-            string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,TC,countryid) values ('" + employee.Name +"', '" + employee.Email +"','" + employee.Gender +"','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password +"', '" + employee.Address +"', '" + employee.tc +"', '" + Convert.ToInt32(employee.countryid) +"')";
-            SqlCommand cmd = new SqlCommand(str, connection);
-            cmd.ExecuteNonQuery();
-            connection.Close();
-            ModelState.Clear();
-            TempData["msg"] = "Successfully Added Data";
-            TempData.Keep();
-            BindData();
-            return View();
+            else
+            {
+                TempData["msg"] = "Please Upload Image";
+                TempData.Keep();
+                BindData();
+                return View();
+            }
         }
     }
 }
