@@ -34,7 +34,7 @@ namespace ASP.NET_MVC_App.Controllers
                 connection.Open();
             }
 
-            string str = "SELECT Employee_tbl.Id, Employee_tbl.Name, Employee_tbl.Email, Employee_tbl.Gender, Employee_tbl.Contact, Employee_tbl.Password, Employee_tbl.Address, Country_tbl.countryname " +
+            string str = "SELECT Employee_tbl.Id, Employee_tbl.Name, Employee_tbl.Email, Employee_tbl.Gender, Employee_tbl.Contact, Employee_tbl.Password, Employee_tbl.Address, Country_tbl.countryname, Employee_tbl.Image " +
                          "FROM Employee_tbl INNER JOIN Country_tbl " +
                          "ON Employee_tbl.countryid = Country_tbl.countryid";
 
@@ -57,6 +57,7 @@ namespace ASP.NET_MVC_App.Controllers
                 countryModel.countryname = dr["countryname"].ToString();
 
                 employeeModel.countryobj = countryModel;
+                employeeModel.Image = dr["Image"].ToString();
 
                 employeelist.Add(employeeModel);
             }
