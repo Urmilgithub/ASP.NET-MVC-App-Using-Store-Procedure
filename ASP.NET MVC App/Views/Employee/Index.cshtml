@@ -120,6 +120,7 @@
                         <th>Password</th>
                         <th>Address</th>
                         <th>Country</th>
+                        <th>Image</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -134,6 +135,9 @@
                         <td>@item.Password</td>
                         <td>@item.Address</td>
                         <td>@item.countryobj.countryname</td>
+                        <td>
+                            <img src="~/Images/@item.Image" width="70px" height="70px" />
+                        </td>
                     </tr>
                     }
                 </tbody>
