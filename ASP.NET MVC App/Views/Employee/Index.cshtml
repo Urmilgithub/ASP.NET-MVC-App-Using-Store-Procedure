@@ -26,7 +26,7 @@
     <div class="row justify-content-md-center">
         <div class="col-md-5">
             <div class="container">
-                @using (Html.BeginForm("Index", "Employee", FormMethod.Post))
+                @using (Html.BeginForm("Index", "Employee", FormMethod.Post, new {@enctype="multipart/form-data"}))
                 {
                     {
                         @Html.AntiForgeryToken()
@@ -62,21 +62,26 @@
                                     @Html.TextBoxFor(x => x.Contact, "", new { @type = "number", @class = "form-control", @placeholder = "Contact" })<br />
                                 </div>
 
-                                <div class="form-group">         
-                                    @if(ViewBag.CountryList != null)
-                                     {
-                                        @Html.DropDownListFor(x=>x.countryid, (List<SelectListItem>)ViewBag.CountryList, "-- Select Country--", new {@class="form-control"})
-                                     }
-                                     else
-                                     {
-                                        @Html.DropDownListFor(x=>x.countryid, new SelectList(string.Empty,"Text","Value"), "-- Select Country--", new { @class = "form-control" })
-                                     }
+                                <div class="form-group">
+                                    @if (ViewBag.CountryList != null)
+                                    {
+                                        @Html.DropDownListFor(x => x.countryid, (List<SelectListItem>)ViewBag.CountryList, "-- Select Country--", new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(x => x.countryid, new SelectList(string.Empty, "Text", "Value"), "-- Select Country--", new { @class = "form-control" })
+                                    }
                                     <br />
                                 </div>
 
                                 <div class="form-group">
                                     @Html.LabelFor(x => x.Password, new { @style = "margin-bottom:10px;" })
                                     @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })<br />
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(x => x.Image, new { @style = "margin-bottom:10px;" })
+                                    @Html.PasswordFor(x => x.Image, new { @class = "form-control", @type="file" })<br />
                                 </div>
 
                                 <div>
