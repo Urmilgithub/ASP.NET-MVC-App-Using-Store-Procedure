@@ -91,7 +91,7 @@ namespace ASP.NET_MVC_App.Controllers
         {
             if (Image != null)
             {
-                Image.SaveAs(Server.MapPath("~/Images/") + Image.FileName);
+                Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
                 SqlConnection connection = new SqlConnection(stringconnection);
                 if (connection.State == ConnectionState.Closed)
                 {
