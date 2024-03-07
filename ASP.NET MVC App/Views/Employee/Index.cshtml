@@ -21,6 +21,9 @@
             color: green;
         }
     </style>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
     <div class="row justify-content-md-center">
@@ -75,13 +78,25 @@
                                 </div>
 
                                 <div class="form-group">
+                                    @if (ViewBag.StateList != null)
+                                    {
+                                        @Html.DropDownListFor(x => x.stateid, (List<SelectListItem>)ViewBag.StateList, "-- Select State--", new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(x => x.stateid, new SelectList(string.Empty, "Text", "Value"), "-- Select State--", new { @class = "form-control" })
+                                    }
+                                    <br />
+                                </div>
+
+                                <div class="form-group">
                                     @Html.LabelFor(x => x.Password, new { @style = "margin-bottom:10px;" })
                                     @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })<br />
                                 </div>
 
                                 <div class="form-group">
                                     @Html.LabelFor(x => x.Image, new { @style = "margin-bottom:10px;" })
-                                    @Html.TextBoxFor(x => x.Image, new { @class = "form-control", @type="file" })<br />
+                                    @Html.TextBoxFor(x => x.Image, new { @class = "form-control", @type = "file" })<br />
                                 </div>
 
                                 <div>
