@@ -97,7 +97,7 @@ namespace ASP.NET_MVC_App.Controllers
                 {
                     connection.Open();
                 }
-                string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password + "', '" + employee.Address + "', '" + employee.Image + "' , '" + employee.tc + "', '" + Convert.ToInt32(employee.countryid) + "')";
+                string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password + "', '" + employee.Address + "', '" + Image.FileName + "' , '" + employee.tc + "', '" + Convert.ToInt32(employee.countryid) + "')";
                 SqlCommand cmd = new SqlCommand(str, connection);
                 cmd.ExecuteNonQuery();
                 connection.Close();
