@@ -20,5 +20,8 @@ namespace ASP.NET_MVC_App.Models
         public int countryid { get; set; }
         public Country countryobj { get; set; }
 
+        public int stateid { get; set; }
+        public State stateobj { get; set; }
+
     }
 }
