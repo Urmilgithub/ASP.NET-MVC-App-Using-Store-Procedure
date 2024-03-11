@@ -26,6 +26,24 @@ namespace ASP.NET_MVC_App.Controllers
             return View();
         }
 
+        public JsonResult GetStates(int Countryid)
+        {
+            SqlConnection connection = new SqlConnection(stringconnection);
+            if(connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+            string str = "select * from Statetbl where countryid = " + Countryid;
+            SqlCommand cmd = new SqlCommand(str, connection);
+            SqlDataReader dr = cmd.ExecuteReader();
+            List<SelectListItem> statelist = new List<SelectListItem>();
+            while (dr.Read())
+            {
+                statelist.Add(new SelectListItem { Text = dr["statename"].ToString(), Value = dr["stateid"].ToString() });
+            }
+            return Json(statelist, JsonRequestBehavior.AllowGet);
+        }
+
         public void BindData()
         {
             SqlConnection connection = new SqlConnection(stringconnection);
