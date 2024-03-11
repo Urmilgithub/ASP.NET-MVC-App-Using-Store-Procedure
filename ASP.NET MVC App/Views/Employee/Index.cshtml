@@ -32,13 +32,13 @@
                 $('#stateid').empty();
                 $.ajax({
                     type: 'GET',
-                    url:@Url.Action("GetStates"),
+                    url: '@Url.Action("GetStates")',
                     dataType: 'json',
-                    data: { 'Countryid': $(#countryid).val() },
+                    data: { 'Countryid': $('#countryid').val() },
 
                     success: function (statelist) {
 
-                        for (i = 0, i < statelist.length; i++) {
+                        for (i = 0; i < statelist.length; i++) {
                             var opt = new Option(statelist[i].Text, statelist.Value);
                             $('#stateid').append(opt);
                         }
