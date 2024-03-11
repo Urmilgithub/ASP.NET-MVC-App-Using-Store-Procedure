@@ -33,7 +33,7 @@ namespace ASP.NET_MVC_App.Controllers
             {
                 connection.Open();
             }
-            string str = "select * from Statetbl where countryid = " + Countryid;
+            string str = "select * from State_tbl where countryid = " + Countryid;
             SqlCommand cmd = new SqlCommand(str, connection);
             SqlDataReader dr = cmd.ExecuteReader();
             List<SelectListItem> statelist = new List<SelectListItem>();
