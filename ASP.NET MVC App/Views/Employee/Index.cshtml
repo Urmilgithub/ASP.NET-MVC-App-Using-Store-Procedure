@@ -21,9 +21,38 @@
             color: green;
         }
     </style>
+
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#countryid').on('change', function () {
+                $('#stateid').empty();
+                $.ajax({
+                    type: 'GET',
+                    url:@Url.Action("GetStates"),
+                    dataType: 'json',
+                    data: { 'Countryid': $(#countryid).val() },
+
+                    success: function (statelist) {
+
+                        for (i = 0, i < statelist.length; i++) {
+                            var opt = new Option(statelist[i].Text, statelist.Value);
+                            $('#stateid').append(opt);
+                        }
+                    },
+
+                    error: function () {
+                        alert('Something went wrong!');
+                    }
+                });
+
+            });
+        });
+    </script>
+
 </head>
 <body>
     <div class="row justify-content-md-center">
