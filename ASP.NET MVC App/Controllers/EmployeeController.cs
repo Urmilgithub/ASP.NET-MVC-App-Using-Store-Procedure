@@ -34,7 +34,7 @@ namespace ASP.NET_MVC_App.Controllers
             {
                 connection.Open();
             }
-            string str = "select * from State_tbl where countryid = " + Countryid;
+            string str = "select * from State_tbl where countryid =" + Countryid;
             SqlCommand cmd = new SqlCommand(str, connection);
             SqlDataReader dr = cmd.ExecuteReader();
             List<SelectListItem> statelist = new List<SelectListItem>();
@@ -121,7 +121,7 @@ namespace ASP.NET_MVC_App.Controllers
                 {
                     connection.Open();
                 }
-                string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid,stateid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password + "', '" + employee.Address + "', '" + Image.FileName + "' , '" + employee.tc + "', '" + Convert.ToInt32(employee.countryid) + "' , '" + Convert.ToInt32(employee.stateid) + "')";
+                string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid,stateid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "'," + Convert.ToInt32(employee.Contact) + ",'" + employee.Password + "', '" + employee.Address + "', '" + Image.FileName + "' , '" + employee.tc + "', " + Convert.ToInt32(employee.countryid) + " , " + Convert.ToInt32(employee.stateid) + ")";
                 SqlCommand cmd = new SqlCommand(str, connection);
                 cmd.ExecuteNonQuery();
                 connection.Close();
