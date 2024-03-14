@@ -17,6 +17,7 @@ namespace ASP.NET_MVC_App.Controllers
 
         Employee employeeModel = null;
         Country countryModel = null;
+        State stateModel = null;
 
         // GET: Employee
         public ActionResult Index()
@@ -33,7 +34,7 @@ namespace ASP.NET_MVC_App.Controllers
             {
                 connection.Open();
             }
-            string str = "select * from State_tbl where countryid = " + Countryid;
+            string str = "select * from State_tbl where countryid=" + Countryid;
             SqlCommand cmd = new SqlCommand(str, connection);
             SqlDataReader dr = cmd.ExecuteReader();
             List<SelectListItem> statelist = new List<SelectListItem>();
@@ -52,9 +53,10 @@ namespace ASP.NET_MVC_App.Controllers
                 connection.Open();
             }
 
-            string str = "SELECT Employee_tbl.Id, Employee_tbl.Name, Employee_tbl.Email, Employee_tbl.Gender, Employee_tbl.Contact, Employee_tbl.Password, Employee_tbl.Address, Country_tbl.countryname, Employee_tbl.Image " +
+            string str = "SELECT Employee_tbl.Id, Employee_tbl.Name, Employee_tbl.Email, Employee_tbl.Gender, Employee_tbl.Contact, Employee_tbl.Password, Employee_tbl.Address, Country_tbl.countryname, State_tbl.statename, Employee_tbl.Image " +
                          "FROM Employee_tbl INNER JOIN Country_tbl " +
-                         "ON Employee_tbl.countryid = Country_tbl.countryid";
+                         "ON Employee_tbl.countryid = Country_tbl.countryid " +
+                         "INNER JOIN State_tbl ON Employee_tbl.stateid = State_tbl.stateid";
 
             SqlCommand cmd =new SqlCommand(str, connection);
             SqlDataReader dr = cmd.ExecuteReader();
@@ -73,8 +75,12 @@ namespace ASP.NET_MVC_App.Controllers
                 
                 countryModel = new Country();
                 countryModel.countryname = dr["countryname"].ToString();
-
                 employeeModel.countryobj = countryModel;
+
+                stateModel = new State();
+                stateModel.statename = dr["statename"].ToString();
+                employeeModel.stateobj = stateModel;
+
                 employeeModel.Image = dr["Image"].ToString();
 
                 employeelist.Add(employeeModel);
@@ -115,13 +121,14 @@ namespace ASP.NET_MVC_App.Controllers
                 {
                     connection.Open();
                 }
-                string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "','" + Convert.ToInt32(employee.Contact) + "','" + employee.Password + "', '" + employee.Address + "', '" + Image.FileName + "' , '" + employee.tc + "', '" + Convert.ToInt32(employee.countryid) + "')";
+                string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid,stateid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "'," + Convert.ToInt32(employee.Contact) + ",'" + employee.Password + "', '" + employee.Address + "', '" + Image.FileName + "' , '" + Convert.ToBoolean(employee.tc) + "', " + Convert.ToInt32(employee.countryid) + " , " + Convert.ToInt32(employee.stateid) + ")";
                 SqlCommand cmd = new SqlCommand(str, connection);
                 cmd.ExecuteNonQuery();
                 connection.Close();
                 ModelState.Clear();
                 TempData["msg"] = "Successfully Added Data";
                 TempData.Keep();
+                BindCountry();
                 BindData();
                 return View();
             }
@@ -129,6 +136,7 @@ namespace ASP.NET_MVC_App.Controllers
             {
                 TempData["msg"] = "Please Upload Image";
                 TempData.Keep();
+                BindCountry();
                 BindData();
                 return View();
             }
