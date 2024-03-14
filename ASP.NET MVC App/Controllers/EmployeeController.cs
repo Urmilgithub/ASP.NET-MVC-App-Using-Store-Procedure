@@ -34,7 +34,7 @@ namespace ASP.NET_MVC_App.Controllers
             {
                 connection.Open();
             }
-            string str = "select * from State_tbl where countryid =" + Countryid;
+            string str = "select * from State_tbl where countryid=" + Countryid;
             SqlCommand cmd = new SqlCommand(str, connection);
             SqlDataReader dr = cmd.ExecuteReader();
             List<SelectListItem> statelist = new List<SelectListItem>();
@@ -128,6 +128,7 @@ namespace ASP.NET_MVC_App.Controllers
                 ModelState.Clear();
                 TempData["msg"] = "Successfully Added Data";
                 TempData.Keep();
+                BindCountry();
                 BindData();
                 return View();
             }
@@ -135,6 +136,7 @@ namespace ASP.NET_MVC_App.Controllers
             {
                 TempData["msg"] = "Please Upload Image";
                 TempData.Keep();
+                BindCountry();
                 BindData();
                 return View();
             }
