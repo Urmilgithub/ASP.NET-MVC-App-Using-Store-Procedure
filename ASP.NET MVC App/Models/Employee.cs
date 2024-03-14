@@ -23,5 +23,8 @@ namespace ASP.NET_MVC_App.Models
         public int stateid { get; set; }
         public State stateobj { get; set; }
 
+        public int cityid { get; set; }
+        public City cityobj { get; set; }
+
     }
 }
