@@ -117,6 +117,18 @@
                                 </div>
 
                                 <div class="form-group">
+                                    @if (ViewBag.CityList != null)
+                                    {
+                                        @Html.DropDownListFor(x => x.cityid, (List<SelectListItem>)ViewBag.CityList, "-- Select City--", new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(x => x.cityid, new SelectList(string.Empty, "Text", "Value"), "-- Select City--", new { @class = "form-control" })
+                                    }
+                                    <br />
+                                </div>
+
+                                <div class="form-group">
                                     @Html.LabelFor(x => x.Password, new { @style = "margin-bottom:10px;" })
                                     @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })<br />
                                 </div>
