@@ -33,6 +33,7 @@
         $(document).ready(function () {
             $('#countryid').on('change', function () {
                 $('#stateid').empty();
+                $('#stateid').append('<Option>--Select State--</Option>');
                 $.ajax({
                     type: 'GET',
                     url: '@Url.Action("GetStates")',
@@ -53,7 +54,8 @@
             });
 
         $('#stateid').on('change', function () {
-           $('#cityid').empty();
+            $('#cityid').empty();
+            $('#cityid').append('<Option>--Select City--</Option>');
              $.ajax({
              type: 'GET',
              url: '@Url.Action("GetCities")',
