@@ -27,6 +27,11 @@ namespace ASP.NET_MVC_App.Controllers
             return View();
         }
 
+        public JsonResult GetCities(int stateid)
+        {
+            return null;
+        }
+
         public JsonResult GetStates(int Countryid)
         {
             SqlConnection connection = new SqlConnection(stringconnection);
