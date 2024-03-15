@@ -31,8 +31,12 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#stateid').attr('disabled', true);
+            $('#cityid').attr('disabled', true);
             $('#countryid').on('change', function () {
+                $('#stateid').attr('disabled', false);
                 $('#stateid').empty();
+                $('#stateid').append('<Option>--Select State--</Option>');
                 $.ajax({
                     type: 'GET',
                     url: '@Url.Action("GetStates")',
@@ -50,6 +54,30 @@
                         alert('something went wrong!');
                     }
                 });
+            });
+
+        $('#stateid').on('change', function () {
+            $('#cityid').attr('disabled', false);
+            $('#cityid').empty();
+            $('#cityid').append('<Option>--Select City--</Option>');
+             $.ajax({
+             type: 'GET',
+             url: '@Url.Action("GetCities")',
+             dataType:'json',
+             data: { 'Stateid': $('#stateid').val() },
+
+                    success: function (citylist) {
+
+                        for (var i = 0; i < citylist.length; i++) {
+                            var opt = new Option(citylist[i].Text, citylist[i].Value);
+                            $('#cityid').append(opt);
+                        }
+                    },
+                    error: function () {
+                        alert('something went wrong!');
+                    }
+                });
+
             });
         });
     </script>
