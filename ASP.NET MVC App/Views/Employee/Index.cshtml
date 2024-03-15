@@ -51,6 +51,28 @@
                     }
                 });
             });
+
+        $('#stateid').on('change', function () {
+           $('#cityid').empty();
+             $.ajax({
+             type: 'GET',
+             url: '@Url.Action("GetCities")',
+             dataType:'json',
+             data: { 'Stateid': $('#stateid').val() },
+
+                    success: function (citylist) {
+
+                        for (var i = 0; i < citylist.length; i++) {
+                            var opt = new Option(citylist[i].Text, citylist[i].Value);
+                            $('#cityid').append(opt);
+                        }
+                    },
+                    error: function () {
+                        alert('something went wrong!');
+                    }
+                });
+
+            });
         });
     </script>
 
