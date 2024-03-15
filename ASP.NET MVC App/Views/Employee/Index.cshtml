@@ -20,6 +20,9 @@
         .successmsg {
             color: green;
         }
+        .control label{
+            margin-bottom: 5px;
+        }
     </style>
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
@@ -93,6 +96,7 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="control-label">Country</label>
                                     @if (ViewBag.CountryList != null)
                                     {
                                         @Html.DropDownListFor(x => x.countryid, (List<SelectListItem>)ViewBag.CountryList, "-- Select Country--", new { @class = "form-control" })
@@ -105,6 +109,7 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="control-label">State</label>
                                     @if (ViewBag.StateList != null)
                                     {
                                         @Html.DropDownListFor(x => x.stateid, (List<SelectListItem>)ViewBag.StateList, "-- Select State--", new { @class = "form-control" })
@@ -112,6 +117,19 @@
                                     else
                                     {
                                         @Html.DropDownListFor(x => x.stateid, new SelectList(string.Empty, "Text", "Value"), "-- Select State--", new { @class = "form-control" })
+                                    }
+                                    <br />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label">State</label>
+                                    @if (ViewBag.CityList != null)
+                                    {
+                                        @Html.DropDownListFor(x => x.cityid, (List<SelectListItem>)ViewBag.CityList, "-- Select City--", new { @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(x => x.cityid, new SelectList(string.Empty, "Text", "Value"), "-- Select City--", new { @class = "form-control" })
                                     }
                                     <br />
                                 </div>
