@@ -18,6 +18,7 @@ namespace ASP.NET_MVC_App.Controllers
         Employee employeeModel = null;
         Country countryModel = null;
         State stateModel = null;
+        City cityModel = null;
 
         // GET: Employee
         public ActionResult Index()
@@ -71,11 +72,12 @@ namespace ASP.NET_MVC_App.Controllers
                 connection.Open();
             }
 
-            string str = "SELECT Employee_tbl.Id, Employee_tbl.Name, Employee_tbl.Email, Employee_tbl.Gender, Employee_tbl.Contact, Employee_tbl.Password, Employee_tbl.Address, Country_tbl.countryname, State_tbl.statename, Employee_tbl.Image " +
+            string str = "SELECT Employee_tbl.Id, Employee_tbl.Name, Employee_tbl.Email, Employee_tbl.Gender, Employee_tbl.Contact, Employee_tbl.Password, Employee_tbl.Address, Country_tbl.countryname, State_tbl.statename, City_tbl.cityname,Employee_tbl.Image " +
                          "FROM Employee_tbl INNER JOIN Country_tbl " +
                          "ON Employee_tbl.countryid = Country_tbl.countryid " +
-                         "INNER JOIN State_tbl ON Employee_tbl.stateid = State_tbl.stateid";
-
+                         "INNER JOIN State_tbl ON Employee_tbl.stateid = State_tbl.stateid " +
+                         "INNER JOIN City_tbl ON Employee_tbl.cityid = City_tbl.cityid " +
+                         "ORDER BY Employee_tbl.Id DESC";
             SqlCommand cmd =new SqlCommand(str, connection);
             SqlDataReader dr = cmd.ExecuteReader();
             List<Employee> employeelist = new List<Employee>();
@@ -98,6 +100,10 @@ namespace ASP.NET_MVC_App.Controllers
                 stateModel = new State();
                 stateModel.statename = dr["statename"].ToString();
                 employeeModel.stateobj = stateModel;
+
+                cityModel = new City();
+                cityModel.cityname = dr["cityname"].ToString();
+                employeeModel.cityobj = cityModel;
 
                 employeeModel.Image = dr["Image"].ToString();
 
