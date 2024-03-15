@@ -31,7 +31,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#stateid').attr('disabled', true);
+            $('#cityid').attr('disabled', true);
             $('#countryid').on('change', function () {
+                $('#stateid').attr('disabled', false);
                 $('#stateid').empty();
                 $('#stateid').append('<Option>--Select State--</Option>');
                 $.ajax({
@@ -54,6 +57,7 @@
             });
 
         $('#stateid').on('change', function () {
+            $('#cityid').attr('disabled', false);
             $('#cityid').empty();
             $('#cityid').append('<Option>--Select City--</Option>');
              $.ajax({
