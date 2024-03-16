@@ -60,7 +60,7 @@ namespace ASP.NET_MVC_App.Controllers
 
                 }
                 BindData();
-                return View();
+                return View(model);
             }
             else
             {
