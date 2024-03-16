@@ -169,7 +169,12 @@
 
                                 <div class="form-group">
                                     @Html.LabelFor(x => x.Image, new { @style = "margin-bottom:10px;" })
-                                    @Html.TextBoxFor(x => x.Image, new { @class = "form-control", @type = "file" })<br />
+                                    @Html.TextBoxFor(x => x.Image, new { @class = "form-control", @type = "file" })
+                                    @if (ViewBag.Image != null)
+                                    {
+                                        <img src="~/Image/@ViewBag.Image" width="70px" height="70px" />
+                                    }
+                                    <br />
                                 </div>
 
                                 <div>
@@ -232,7 +237,7 @@
                             <img src="~/Image/@item.Image" width="70px" height="70px" />
                         </td>
                         <td>
-                            <a href="#" class="btn btn-success">Edit</a>
+                            <a href="@Url.Action("Index","Employee", new {employeeid = item.EmployeeId})" class="btn btn-success">Edit</a>
                         </td>
                     </tr>
                     }

@@ -21,11 +21,53 @@ namespace ASP.NET_MVC_App.Controllers
         City cityModel = null;
 
         // GET: Employee
-        public ActionResult Index()
+        public ActionResult Index(int? employeeid)
         {
-            BindCountry();
-            BindData();
-            return View();
+            if(employeeid > 0)
+            {
+                SqlConnection connection = new SqlConnection(stringconnection);
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+
+                string str = "select * from Employee_tbl where Id =" + employeeid;
+                SqlCommand cmd = new SqlCommand(str, connection);
+                SqlDataReader dr = cmd.ExecuteReader();
+                Employee model = null;
+                while (dr.Read())
+
+                {
+                    model = new Employee();
+                    model.EmployeeId = Convert.ToInt32(dr["Id"]);
+                    model.Name = dr["Name"].ToString();
+                    model.Email = dr["Email"].ToString();
+                    model.Gender = dr["Gender"].ToString();
+                    model.Contact = Convert.ToInt32(dr["Contact"]);
+                    model.Password = dr["Password"].ToString();
+                    model.Address = dr["Address"].ToString();
+
+                    BindCountry();
+                    model.countryid = Convert.ToInt32(dr["countryid"]);
+
+                    GetStates(model.countryid);
+                    model.stateid = Convert.ToInt32(dr["stateid"]);
+
+                    GetCities(model.stateid);
+                    model.cityid = Convert.ToInt32(dr["cityid"]);
+
+                    ViewBag.Image = dr["Image"].ToString();
+
+                }
+                BindData();
+                return View();
+            }
+            else
+            {
+                BindCountry();
+                BindData();
+                return View();
+            }
         }
 
         public JsonResult GetCities(int Stateid)
@@ -43,6 +85,8 @@ namespace ASP.NET_MVC_App.Controllers
             {
                 citylist.Add(new SelectListItem { Text = dr["cityname"].ToString(), Value = dr["cityid"].ToString() });
             }
+
+            ViewBag.CityList = citylist;
             return Json(citylist, JsonRequestBehavior.AllowGet);
         }
 
@@ -61,6 +105,8 @@ namespace ASP.NET_MVC_App.Controllers
             {
                 statelist.Add(new SelectListItem { Text = dr["statename"].ToString(), Value = dr["stateid"].ToString() });
             }
+
+            ViewBag.StateList = statelist;
             return Json(statelist, JsonRequestBehavior.AllowGet);
         }
 
