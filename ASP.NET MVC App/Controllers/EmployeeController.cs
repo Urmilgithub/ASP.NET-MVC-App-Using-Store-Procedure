@@ -39,6 +39,10 @@ namespace ASP.NET_MVC_App.Controllers
 
                 {
                     model = new Employee();
+
+                    TempData["EmployeeId"] = employeeid;
+                    TempData.Keep("EmployeeId");
+
                     model.EmployeeId = Convert.ToInt32(dr["Id"]);
                     model.Name = dr["Name"].ToString();
                     model.Email = dr["Email"].ToString();
