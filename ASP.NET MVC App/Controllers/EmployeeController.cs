@@ -216,15 +216,6 @@ namespace ASP.NET_MVC_App.Controllers
                     BindData();
                     TempData["EmployeeId"] = null;
                     return View();
-                //}
-                //else
-                //{
-                //    TempData["msg"] = "Please Upload Image";
-                //    TempData.Keep();
-                //    BindCountry();
-                //    BindData();
-                //    return View();
-                //}
             }
             else
             {
