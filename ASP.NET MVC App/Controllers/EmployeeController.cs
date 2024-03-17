@@ -68,6 +68,7 @@ namespace ASP.NET_MVC_App.Controllers
             }
             else
             {
+                TempData["EmployeeId"]= null;
                 BindCountry();
                 BindData();
                 return View();
@@ -187,33 +188,76 @@ namespace ASP.NET_MVC_App.Controllers
         [HttpPost]
         public ActionResult Index(Employee employee, HttpPostedFileBase Image)
         {
-            if (Image != null)
-            {
-                Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
+            // Update code
+            if (TempData["EmployeeId"] != null)
+            {              
                 SqlConnection connection = new SqlConnection(stringconnection);
                 if (connection.State == ConnectionState.Closed)
                 {
-                    connection.Open();
+                   connection.Open();
                 }
-                string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid,stateid,cityid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "'," + Convert.ToInt32(employee.Contact) + ",'" + employee.Password + "', '" + employee.Address + "', '" + Image.FileName + "' , '" + Convert.ToBoolean(employee.tc) + "', " + Convert.ToInt32(employee.countryid) + " , " + Convert.ToInt32(employee.stateid) + ", " + Convert.ToInt32(employee.cityid) + ")";
+                string str;
+                if (Image != null)
+                {
+                    Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
+                    str = "Update Employee_tbl set Name = '" + employee.Name + "',Email='" + employee.Email + "',Gender='" + employee.Gender + "',Contact=" + Convert.ToInt32(employee.Contact) + ",Password='" + employee.Password + "',Address= '" + employee.Address + "',Image= '" + Image.FileName + "' ,tc= '" + Convert.ToBoolean(employee.tc) + "',countryid= " + Convert.ToInt32(employee.countryid) + " ,stateid= " + Convert.ToInt32(employee.stateid) + ",cityid= " + Convert.ToInt32(employee.cityid) + " where Id= " + Convert.ToInt32(TempData["EmployeeId"]);
+                }
+                else
+                {
+                    str = "Update Employee_tbl set Name='" + employee.Name + "',Email='" + employee.Email + "',Gender='" + employee.Gender + "',Contact=" + Convert.ToInt32(employee.Contact) + ",Password='" + employee.Password + "',Address= '" + employee.Address + "',tc= '" + Convert.ToBoolean(employee.tc) + "',countryid= " + Convert.ToInt32(employee.countryid) + " ,stateid= " + Convert.ToInt32(employee.stateid) + ",cityid= " + Convert.ToInt32(employee.cityid) + " where Id= " + Convert.ToInt32(TempData["EmployeeId"]);
+                }
                 SqlCommand cmd = new SqlCommand(str, connection);
-                cmd.ExecuteNonQuery();
-                connection.Close();
-                ModelState.Clear();
-                TempData["msg"] = "Successfully Added Data";
-                TempData.Keep();
-                BindCountry();
-                BindData();
-                return View();
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                    ModelState.Clear();
+                    TempData["msg"] = "Successfully Updated Data";
+                    TempData.Keep();
+                    BindCountry();
+                    BindData();
+                    TempData["EmployeeId"] = null;
+                    return View();
+                //}
+                //else
+                //{
+                //    TempData["msg"] = "Please Upload Image";
+                //    TempData.Keep();
+                //    BindCountry();
+                //    BindData();
+                //    return View();
+                //}
             }
             else
             {
-                TempData["msg"] = "Please Upload Image";
-                TempData.Keep();
-                BindCountry();
-                BindData();
-                return View();
+                // Insert code
+                if (Image != null)
+                {
+                    Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
+                    SqlConnection connection = new SqlConnection(stringconnection);
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
+                    string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid,stateid,cityid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "'," + Convert.ToInt32(employee.Contact) + ",'" + employee.Password + "', '" + employee.Address + "', '" + Image.FileName + "' , '" + Convert.ToBoolean(employee.tc) + "', " + Convert.ToInt32(employee.countryid) + " , " + Convert.ToInt32(employee.stateid) + ", " + Convert.ToInt32(employee.cityid) + ")";
+                    SqlCommand cmd = new SqlCommand(str, connection);
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                    ModelState.Clear();
+                    TempData["msg"] = "Successfully Added Data";
+                    TempData.Keep();
+                    BindCountry();
+                    BindData();
+                    return View();
+                }
+                else
+                {
+                    TempData["msg"] = "Please Upload Image";
+                    TempData.Keep();
+                    BindCountry();
+                    BindData();
+                    return View();
+                }
             }
+            
         }
     }
 }
