@@ -238,6 +238,7 @@
                         </td>
                         <td>
                             <a href="@Url.Action("Index","Employee", new {employeeid = item.EmployeeId})" class="btn btn-success">Edit</a>
+                            <a href="@Url.Action("DeleteEmployee","Employee", new {employeeid = item.EmployeeId})" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                     }
