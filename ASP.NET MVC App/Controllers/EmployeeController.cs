@@ -266,10 +266,11 @@ namespace ASP.NET_MVC_App.Controllers
             ModelState.Clear();
             TempData["msg"] = "Successfully deleted Data";
             TempData.Keep("msg");
-            TempData["EmployeeId"] = null;
             BindCountry();
             BindData();
-            return RedirectToAction("Index", new { employeeid = 0 });
+            TempData["EmployeeId"] = null;
+            //return RedirectToAction("Index", new { employeeid = 0 });
+            return View("Index");
         }
 
     }
