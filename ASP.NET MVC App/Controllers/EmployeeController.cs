@@ -250,5 +250,27 @@ namespace ASP.NET_MVC_App.Controllers
             }
             
         }
+
+
+        public ActionResult DeleteEmployee(int employeeid)
+        {
+            SqlConnection connection = new SqlConnection(stringconnection);
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();
+            }
+            string str = "Delete from Employee_tbl where Id=" + employeeid;
+            SqlCommand cmd = new SqlCommand(str, connection);
+            cmd.ExecuteNonQuery();
+            connection.Close();
+            ModelState.Clear();
+            TempData["msg"] = "Successfully deleted Data";
+            TempData.Keep("msg");
+            TempData["EmployeeId"] = null;
+            BindCountry();
+            BindData();
+            return RedirectToAction("Index", new { employeeid = 0 });
+        }
+
     }
 }
