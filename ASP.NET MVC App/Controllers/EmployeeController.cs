@@ -229,7 +229,20 @@ namespace ASP.NET_MVC_App.Controllers
                         connection.Open();
                     }
                     //string str = "Insert into Employee_tbl(Name,Email,Gender,Contact,Password,Address,Image,TC,countryid,stateid,cityid) values ('" + employee.Name + "', '" + employee.Email + "','" + employee.Gender + "'," + Convert.ToInt32(employee.Contact) + ",'" + employee.Password + "', '" + employee.Address + "', '" + Image.FileName + "' , '" + Convert.ToBoolean(employee.tc) + "', " + Convert.ToInt32(employee.countryid) + " , " + Convert.ToInt32(employee.stateid) + ", " + Convert.ToInt32(employee.cityid) + ")";
-                    SqlCommand cmd = new SqlCommand(str, connection);
+                   
+                    SqlCommand cmd = new SqlCommand("SpEmployee_tbl", connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Name", employee.Name);
+                    cmd.Parameters.AddWithValue("@Email", employee.Email);
+                    cmd.Parameters.AddWithValue("@Gender", employee.Gender);
+                    cmd.Parameters.AddWithValue("@Contact", Convert.ToInt32(employee.Contact));
+                    cmd.Parameters.AddWithValue("@Password", employee.Password);
+                    cmd.Parameters.AddWithValue("@Address", employee.Address);
+                    cmd.Parameters.AddWithValue("@Image", employee.Image);
+                    cmd.Parameters.AddWithValue("@countryid", Convert.ToInt32(employee.countryid));
+                    cmd.Parameters.AddWithValue("@stateid", Convert.ToInt32(employee.stateid));
+                    cmd.Parameters.AddWithValue("@Cityid", Convert.ToInt32(employee.cityid));
+                    cmd.Parameters.AddWithValue("@TC", Convert.ToBoolean(employee.tc));
                     cmd.ExecuteNonQuery();
                     connection.Close();
                     ModelState.Clear();
