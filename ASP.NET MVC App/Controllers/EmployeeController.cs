@@ -203,16 +203,42 @@ namespace ASP.NET_MVC_App.Controllers
                    connection.Open();
                 }
                 string str;
+                //if (Image != null)
+                //{
+                //    Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
+                //    str = "Update Employee_tbl set Name = '" + employee.Name + "',Email='" + employee.Email + "',Gender='" + employee.Gender + "',Contact=" + Convert.ToInt32(employee.Contact) + ",Password='" + employee.Password + "',Address= '" + employee.Address + "',Image= '" + Image.FileName + "' ,tc= '" + Convert.ToBoolean(employee.tc) + "',countryid= " + Convert.ToInt32(employee.countryid) + " ,stateid= " + Convert.ToInt32(employee.stateid) + ",cityid= " + Convert.ToInt32(employee.cityid) + " where Id= " + Convert.ToInt32(TempData["EmployeeId"]);
+                //}
+                //else
+                //{
+                //    str = "Update Employee_tbl set Name='" + employee.Name + "',Email='" + employee.Email + "',Gender='" + employee.Gender + "',Contact=" + Convert.ToInt32(employee.Contact) + ",Password='" + employee.Password + "',Address= '" + employee.Address + "',tc= '" + Convert.ToBoolean(employee.tc) + "',countryid= " + Convert.ToInt32(employee.countryid) + " ,stateid= " + Convert.ToInt32(employee.stateid) + ",cityid= " + Convert.ToInt32(employee.cityid) + " where Id= " + Convert.ToInt32(TempData["EmployeeId"]);
+                //}
+
+                SqlCommand cmd = new SqlCommand("SpEmployee_tbl", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Id", Convert.ToInt32(TempData["EmployeeId"]));
+                cmd.Parameters.AddWithValue("@Name", employee.Name);
+                cmd.Parameters.AddWithValue("@Email", employee.Email);
+                cmd.Parameters.AddWithValue("@Gender", employee.Gender);
+                cmd.Parameters.AddWithValue("@Contact", Convert.ToInt32(employee.Contact));
+                cmd.Parameters.AddWithValue("@Password", employee.Password);
+                cmd.Parameters.AddWithValue("@Address", employee.Address);
+                cmd.Parameters.AddWithValue("@countryid", Convert.ToInt32(employee.countryid));
+                cmd.Parameters.AddWithValue("@stateid", Convert.ToInt32(employee.stateid));
+                cmd.Parameters.AddWithValue("@Cityid", Convert.ToInt32(employee.cityid));
+                cmd.Parameters.AddWithValue("@TC", Convert.ToBoolean(employee.tc));
+
                 if (Image != null)
                 {
                     Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
-                    str = "Update Employee_tbl set Name = '" + employee.Name + "',Email='" + employee.Email + "',Gender='" + employee.Gender + "',Contact=" + Convert.ToInt32(employee.Contact) + ",Password='" + employee.Password + "',Address= '" + employee.Address + "',Image= '" + Image.FileName + "' ,tc= '" + Convert.ToBoolean(employee.tc) + "',countryid= " + Convert.ToInt32(employee.countryid) + " ,stateid= " + Convert.ToInt32(employee.stateid) + ",cityid= " + Convert.ToInt32(employee.cityid) + " where Id= " + Convert.ToInt32(TempData["EmployeeId"]);
+                    cmd.Parameters.AddWithValue("@Image", Image.FileName);
+                    cmd.Parameters.AddWithValue("@flag", 3);
                 }
                 else
                 {
-                    str = "Update Employee_tbl set Name='" + employee.Name + "',Email='" + employee.Email + "',Gender='" + employee.Gender + "',Contact=" + Convert.ToInt32(employee.Contact) + ",Password='" + employee.Password + "',Address= '" + employee.Address + "',tc= '" + Convert.ToBoolean(employee.tc) + "',countryid= " + Convert.ToInt32(employee.countryid) + " ,stateid= " + Convert.ToInt32(employee.stateid) + ",cityid= " + Convert.ToInt32(employee.cityid) + " where Id= " + Convert.ToInt32(TempData["EmployeeId"]);
+                    cmd.Parameters.AddWithValue("@flag", 4);
                 }
-                SqlCommand cmd = new SqlCommand(str, connection);
+
                     cmd.ExecuteNonQuery();
                     connection.Close();
                     ModelState.Clear();
