@@ -35,7 +35,7 @@ namespace ASP.NET_MVC_App.Controllers
                 SqlCommand cmd = new SqlCommand("SpEmployee_tbl", connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Id", employeeid);
-                cmd.Parameters.AddWithValue("@flag", 1);
+                cmd.Parameters.AddWithValue("@flag", 6);
                 SqlDataReader dr = cmd.ExecuteReader();
                 Employee model = null;
                 while (dr.Read())
