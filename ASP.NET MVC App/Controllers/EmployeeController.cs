@@ -31,8 +31,11 @@ namespace ASP.NET_MVC_App.Controllers
                     connection.Open();
                 }
 
-                string str = "select * from Employee_tbl where Id =" + employeeid;
-                SqlCommand cmd = new SqlCommand(str, connection);
+               // string str = "select * from Employee_tbl where Id =" + employeeid;
+                SqlCommand cmd = new SqlCommand("SpEmployee_tbl", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Id", employeeid);
+                cmd.Parameters.AddWithValue("@flag", 1);
                 SqlDataReader dr = cmd.ExecuteReader();
                 Employee model = null;
                 while (dr.Read())
