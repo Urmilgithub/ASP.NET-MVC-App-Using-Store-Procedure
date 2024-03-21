@@ -314,10 +314,12 @@ namespace ASP.NET_MVC_App.Controllers
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Id", employeeid);
             cmd.Parameters.AddWithValue("@flag", 5);
+            cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
+            cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
             connection.Close();
             ModelState.Clear();
-            TempData["msg"] = "Successfully deleted Data";
+            TempData["msg"] = cmd.Parameters["@msg"].Value.ToString();
             TempData.Keep("msg");
             BindCountry();
             BindData();
