@@ -202,7 +202,7 @@ namespace ASP.NET_MVC_App.Controllers
                 {
                    connection.Open();
                 }
-                string str;
+                //string str;
                 //if (Image != null)
                 //{
                 //    Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
@@ -233,16 +233,20 @@ namespace ASP.NET_MVC_App.Controllers
                     Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
                     cmd.Parameters.AddWithValue("@Image", Image.FileName);
                     cmd.Parameters.AddWithValue("@flag", 3);
+                    cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
+                    cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
                 }
                 else
                 {
                     cmd.Parameters.AddWithValue("@flag", 4);
+                    cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
+                    cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
                 }
 
                     cmd.ExecuteNonQuery();
                     connection.Close();
                     ModelState.Clear();
-                    TempData["msg"] = "Successfully Updated Data";
+                    TempData["msg"] = cmd.Parameters["@msg"].Value.ToString();
                     TempData.Keep();
                     BindCountry();
                     BindData();
@@ -279,11 +283,13 @@ namespace ASP.NET_MVC_App.Controllers
                     Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
                     cmd.Parameters.AddWithValue("@Image", Image.FileName);
                     cmd.Parameters.AddWithValue("@flag", 2);
+                    cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
+                    cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
 
                     cmd.ExecuteNonQuery();
                     connection.Close();
                     ModelState.Clear();
-                    TempData["msg"] = "Successfully Added Data";
+                    TempData["msg"] = cmd.Parameters["@msg"].Value.ToString();
                     TempData.Keep();
                     BindCountry();
                     BindData();
@@ -314,10 +320,12 @@ namespace ASP.NET_MVC_App.Controllers
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Id", employeeid);
             cmd.Parameters.AddWithValue("@flag", 5);
+            cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
+            cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
             connection.Close();
             ModelState.Clear();
-            TempData["msg"] = "Successfully deleted Data";
+            TempData["msg"] = cmd.Parameters["@msg"].Value.ToString();
             TempData.Keep("msg");
             BindCountry();
             BindData();
