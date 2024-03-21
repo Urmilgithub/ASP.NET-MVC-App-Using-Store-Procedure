@@ -202,7 +202,7 @@ namespace ASP.NET_MVC_App.Controllers
                 {
                    connection.Open();
                 }
-                string str;
+                //string str;
                 //if (Image != null)
                 //{
                 //    Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
@@ -239,7 +239,8 @@ namespace ASP.NET_MVC_App.Controllers
                 else
                 {
                     cmd.Parameters.AddWithValue("@flag", 4);
-                    
+                    cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
+                    cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
                 }
 
                     cmd.ExecuteNonQuery();
