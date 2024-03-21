@@ -233,16 +233,19 @@ namespace ASP.NET_MVC_App.Controllers
                     Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
                     cmd.Parameters.AddWithValue("@Image", Image.FileName);
                     cmd.Parameters.AddWithValue("@flag", 3);
+                    cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
+                    cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
                 }
                 else
                 {
                     cmd.Parameters.AddWithValue("@flag", 4);
+                    
                 }
 
                     cmd.ExecuteNonQuery();
                     connection.Close();
                     ModelState.Clear();
-                    TempData["msg"] = "Successfully Updated Data";
+                    TempData["msg"] = cmd.Parameters["@msg"].Value.ToString();
                     TempData.Keep();
                     BindCountry();
                     BindData();
