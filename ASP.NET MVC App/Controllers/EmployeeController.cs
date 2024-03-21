@@ -279,11 +279,13 @@ namespace ASP.NET_MVC_App.Controllers
                     Image.SaveAs(Server.MapPath("~/Image/") + Image.FileName);
                     cmd.Parameters.AddWithValue("@Image", Image.FileName);
                     cmd.Parameters.AddWithValue("@flag", 2);
+                    cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
+                    cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
 
                     cmd.ExecuteNonQuery();
                     connection.Close();
                     ModelState.Clear();
-                    TempData["msg"] = "Successfully Added Data";
+                    TempData["msg"] = cmd.Parameters["@msg"].Value.ToString();
                     TempData.Keep();
                     BindCountry();
                     BindData();
