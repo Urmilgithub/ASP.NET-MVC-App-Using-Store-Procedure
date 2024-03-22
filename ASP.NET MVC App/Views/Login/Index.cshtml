@@ -1,4 +1,5 @@
-﻿
+﻿@model ASP.NET_MVC_App.Models.Employee
+
 @{
     Layout = null;
 }
@@ -14,15 +15,18 @@
 </head>
 <body>
     <div class="wrapper">
-        <form class="form-signin">
-            <h2 class="form-signin-heading">Please login</h2>
-            <input type="text" class="form-control" name="username" placeholder="Email Address" required="" autofocus="" /><br />
-            <input type="password" class="form-control" name="password" placeholder="Password" required="" />
-            <label class="checkbox">
-                <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
-            </label><br />
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        </form>
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post))
+        {
+            <div class="form-signin">
+                <h2 class="form-signin-heading">Please login</h2>
+                @Html.TextBoxFor(x => x.Email, "", new { @class = "form-control", @placeholder = "Email" })<br />
+                @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })
+                <label class="checkbox">
+                    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
+                </label><br />
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+            </div>
+        }
     </div>
 </body>
 </html>
