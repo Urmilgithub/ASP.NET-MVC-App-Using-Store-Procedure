@@ -12,6 +12,11 @@
     <title>Index</title>
     <link href="~/Content/Login.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .successmsg {
+            color: green;
+        }
+    </style>
 </head>
 <body>
     <div class="wrapper">
@@ -25,6 +30,10 @@
                     <input type="checkbox"> Remember me
                 </label><br />
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                @if (TempData["msg"] != null)
+                {
+                    @Html.Label(TempData["msg"].ToString(), new { @class = "successmsg" })
+                }
             </div>
         }
     </div>
