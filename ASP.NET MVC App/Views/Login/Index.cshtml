@@ -18,11 +18,11 @@
         @using (Html.BeginForm("Index", "Login", FormMethod.Post))
         {
             <div class="form-signin">
-                <h2 class="form-signin-heading">Please login</h2>
+                <h3 class="form-signin-heading text-center">Login</h3>
                 @Html.TextBoxFor(x => x.Email, "", new { @class = "form-control", @placeholder = "Email" })<br />
                 @Html.PasswordFor(x => x.Password, new { @class = "form-control", @placeholder = "Password" })
                 <label class="checkbox">
-                    <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
+                    <input type="checkbox"> Remember me
                 </label><br />
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
             </div>
