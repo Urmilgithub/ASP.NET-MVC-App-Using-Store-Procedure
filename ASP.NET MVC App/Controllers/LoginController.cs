@@ -40,8 +40,15 @@ namespace ASP.NET_MVC_App.Controllers
             cmd.Parameters.Add("@username", SqlDbType.NVarChar, 50);
             cmd.Parameters["@username"].Direction = ParameterDirection.Output;
             SqlDataReader dr = cmd.ExecuteReader();
+
+            if(cmd.Parameters["@username"].Value.ToString() != null)
+            {
+                Session["loggedname"] = cmd.Parameters["@username"].Value.ToString();
+            }
+            
             TempData["msg"] = cmd.Parameters["@msg"].Value.ToString();
             TempData.Keep();
+
             while (dr.Read())
             {
 
