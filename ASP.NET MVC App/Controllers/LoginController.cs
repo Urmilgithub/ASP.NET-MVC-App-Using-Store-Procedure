@@ -37,6 +37,8 @@ namespace ASP.NET_MVC_App.Controllers
             cmd.Parameters.AddWithValue("@flag", 7);
             cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
             cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
+            cmd.Parameters.Add("@username", SqlDbType.NVarChar, 50);
+            cmd.Parameters["@username"].Direction = ParameterDirection.Output;
             SqlDataReader dr = cmd.ExecuteReader();
             TempData["msg"] = cmd.Parameters["@msg"].Value.ToString();
             TempData.Keep();
