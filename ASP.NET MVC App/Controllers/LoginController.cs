@@ -33,6 +33,7 @@ namespace ASP.NET_MVC_App.Controllers
             SqlCommand cmd = new SqlCommand("SpEmployee_tbl", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Email", employee.Email);
+            cmd.Parameters.AddWithValue("@Password", employee.Password);
             cmd.Parameters.AddWithValue("@flag", 7);
             cmd.Parameters.Add("@msg", SqlDbType.NVarChar, 50);
             cmd.Parameters["@msg"].Direction = ParameterDirection.Output;
