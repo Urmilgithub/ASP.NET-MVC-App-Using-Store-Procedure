@@ -41,7 +41,7 @@ namespace ASP.NET_MVC_App.Controllers
             cmd.Parameters["@username"].Direction = ParameterDirection.Output;
             SqlDataReader dr = cmd.ExecuteReader();
 
-            if(cmd.Parameters["@username"].Value.ToString() != null)
+            if(cmd.Parameters["@username"].Value.ToString() != "")
             {
                 Session["loggedname"] = cmd.Parameters["@username"].Value.ToString();
                 return RedirectToAction("Index", "Employee");
