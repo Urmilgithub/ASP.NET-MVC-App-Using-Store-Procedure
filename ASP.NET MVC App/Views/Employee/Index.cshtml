@@ -84,10 +84,37 @@
 
 </head>
 <body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Asp.Net WebApp</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1"></ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            @if (Session["loggedname"] != null)
+                            {
+                                @:Welcome, @Session["loggedname"].ToString()
+                            }
+                            else
+                            {
+                                @:Welcome, Guest!
+                            }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
     <div class="row justify-content-md-center">
         <div class="col-md-5">
             <div class="container">
-                @using (Html.BeginForm("Index", "Employee", FormMethod.Post, new {@enctype="multipart/form-data"}))
+                @using (Html.BeginForm("Index", "Employee", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                 {
                     {
                         @Html.AntiForgeryToken()
@@ -222,32 +249,32 @@
                 <tbody>
                     @foreach (var item in (List<Employee>)ViewData["EmployeeList"])
                     {
-                    <tr>
-                        <td>@item.EmployeeId</td>
-                        <td>@item.Name</td>
-                        <td>@item.Email</td>
-                        <td>@item.Gender</td>
-                        <td>@item.Contact</td>
-                        <td>@item.Password</td>
-                        <td>@item.Address</td>
-                        <td>@item.countryobj.countryname</td>
-                        <td>@item.stateobj.statename</td>
-                        <td>@item.cityobj.cityname</td>
-                        <td>
-                            <img src="~/Image/@item.Image" width="70px" height="70px" />
-                        </td>
-                        <td>
-                            <a href="@Url.Action("Index","Employee", new {employeeid = item.EmployeeId})" class="btn btn-success">Edit</a>
-                            <a href="@Url.Action("DeleteEmployee","Employee", new {employeeid = item.EmployeeId})" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>@item.EmployeeId</td>
+                            <td>@item.Name</td>
+                            <td>@item.Email</td>
+                            <td>@item.Gender</td>
+                            <td>@item.Contact</td>
+                            <td>@item.Password</td>
+                            <td>@item.Address</td>
+                            <td>@item.countryobj.countryname</td>
+                            <td>@item.stateobj.statename</td>
+                            <td>@item.cityobj.cityname</td>
+                            <td>
+                                <img src="~/Image/@item.Image" width="70px" height="70px" />
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Index","Employee", new {employeeid = item.EmployeeId})" class="btn btn-success">Edit</a>
+                                <a href="@Url.Action("DeleteEmployee","Employee", new {employeeid = item.EmployeeId})" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
                     }
                 </tbody>
             </table>
         }
         else
         {
-           <h1> No Records Found!</h1>
+            <h1> No Records Found!</h1>
         }
     </div>
 
