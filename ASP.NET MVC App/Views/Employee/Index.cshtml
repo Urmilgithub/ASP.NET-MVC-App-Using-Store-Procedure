@@ -89,7 +89,7 @@
             <div class="navbar-header">
                 @if (Session["loggedname"] != null)
                 {
-                    @:Welcome, Session["loggedname"].ToString();
+                    @:Welcome, @Session["loggedname"].ToString()
                 }
                 else
                 {
