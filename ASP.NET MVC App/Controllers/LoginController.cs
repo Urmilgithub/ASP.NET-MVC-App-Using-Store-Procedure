@@ -44,6 +44,7 @@ namespace ASP.NET_MVC_App.Controllers
             if(cmd.Parameters["@username"].Value.ToString() != null)
             {
                 Session["loggedname"] = cmd.Parameters["@username"].Value.ToString();
+                return RedirectToAction("Index", "Employee");
             }
             
             TempData["msg"] = cmd.Parameters["@msg"].Value.ToString();
